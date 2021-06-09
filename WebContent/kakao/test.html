@@ -13,8 +13,6 @@
     $(function(){
             var address = encodeURIComponent('http://apis.data.go.kr/B552657/ErmctInfoInqireService/getEmrrmRltmUsefulSckbdInfoInqire?serviceKey=iAnMtFh%2B6mY3GEwsTL5x1C62MuzU9lAQj8Sm0C3BRBKkm9cQ9tFoV3LbZk1lgGFMEqnH3M5sowliBVezGw7HrQ%3D%3D&STATE1=서울특별시');
             
-            console.log(address);
-            
         $('#btn').click(function(){
             $.ajax({
                 url : 'proxy.jsp?url='+address,

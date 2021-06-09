@@ -15,8 +15,10 @@
         
         $(function(){
             $('#btn').click(function(){
+            	var address = encodeURIComponent('http://apis.data.go.kr/B552061/frequentzoneBicycle/getRestFrequentzoneBicycle?serviceKey=uzqVSGAn51ZoLPRRxN3%2BrS47DIR%2FD7HyH1lSAzGAHSAqhq4zjnlcq%2FpPlCLyApT8M%2B4VQ%2BHMHvSZVGdSE%2FjcrQ%3D%3D&searchYearCd=2015&siDo=11&guGun=110&type=json&numOfRows=1&pageNo=1');
+                
                $.ajax({
-                   url : 'proxy.jsp?url=http://www.acornacademy.co.kr/blockchain/naver_json.jsp',
+                   url : 'proxy.jsp?url='+address,
                    type : 'get',
                    dataType : 'json',
                    error : function(){},
