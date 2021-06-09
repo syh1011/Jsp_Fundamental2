@@ -54,7 +54,5 @@ public class TomcatConnectionServlet extends HttpServlet {
 		out.println("</table>");
 		out.println("</body>");
 		out.println("</html>");
-		
 	}
-
 }
