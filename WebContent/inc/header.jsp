@@ -1,4 +1,4 @@
-<!-- template.html -->
+<%@ page pageEncoding="utf-8"%>
 <!doctype html>
 <html lang="en">
   <head>
@@ -52,52 +52,3 @@
 	  </div>
 	</nav>
   	<!-- navbar end -->
-  	<!-- breadcrumb start -->
-  	<nav aria-label="breadcrumb">
-	  <ol class="breadcrumb">
-	    <li class="breadcrumb-item"><a href="#">Home</a></li>
-	    <li class="breadcrumb-item"><a href="#">Library</a></li>
-	    <li class="breadcrumb-item active" aria-current="page">Data</li>
-	  </ol>
-	</nav>
-	<!-- breadcrumb end -->
-  	
-  	<!-- container start -->
-	<div class="container">
-		<!-- col start -->
-		<div class="col-md-12">
-			<form>
-			  <div class="mb-3">
-			    <label for="exampleInputEmail1" class="form-label">Email address</label>
-			    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-			    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-			  </div>
-			  <div class="mb-3">
-			    <label for="exampleInputPassword1" class="form-label">Password</label>
-			    <input type="password" class="form-control" id="exampleInputPassword1">
-			  </div>
-			  <div class="mb-3 form-check">
-			    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-			    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-			  </div>
-			  <button type="submit" class="btn btn-primary">Submit</button>
-			</form>
-		</div>
-		<!-- col end -->
-	</div>
-	<!-- container end -->
-	
-	<footer class="text-center text-lg-start bg-light text-muted" style="margin:20px 0 0 0">
-    	<div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
-	    © 2021 Copyright: 성영한
-	  </div>
-  	</footer>
-  </body>
- 
-  
-</html>
-
-
-
-
-
