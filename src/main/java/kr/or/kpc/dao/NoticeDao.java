@@ -121,7 +121,7 @@ public class NoticeDao {
 			con = ConnLocator.getConnect();
 
 			StringBuilder sql = new StringBuilder();
-			sql.append("SELECT n_num, n_writer,n_title, n_content, n_regdate ");
+			sql.append("SELECT n_num, n_writer,n_title, n_content, date_format(n_regdate,'%Y/%m/%d') ");
 			sql.append("FROM notice ");
 			sql.append("ORDER BY n_regdate DESC ");
 			sql.append("LIMIT ?, ? ");
@@ -152,7 +152,41 @@ public class NoticeDao {
 
 		return list;
 	}
-
+	public int getRows() {
+		int resultCount = 0;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = ConnLocator.getConnect();
+			
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT COUNT(n_num) ");
+			sql.append("FROM notice ");
+			
+			pstmt = con.prepareStatement(sql.toString());
+			
+			int index = 1;
+			
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				index = 1;
+				resultCount = rs.getInt(index++);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(con, pstmt, rs);
+		}
+		
+		return resultCount;
+	}
+	
+	
+	
+	
 	private void close(Connection con, 
 			PreparedStatement pstmt, 
 			ResultSet rs) {
