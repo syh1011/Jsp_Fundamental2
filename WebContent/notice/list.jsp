@@ -1,6 +1,33 @@
 <!-- template.html -->
+<%@page import="kr.or.kpc.dto.NoticeDto"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="kr.or.kpc.dao.NoticeDao"%>
 <%@ page pageEncoding="utf-8" %>
 <%@ include file="../inc/header.jsp" %>
+<%
+	String tempPage = request.getParameter("page");
+	int cPage = 0;
+	if(tempPage== null || tempPage.length()==0){
+		cPage = 1;
+	}
+	try{
+		cPage = Integer.parseInt(tempPage);
+	}catch(NumberFormatException e){
+		cPage = 1;
+	}
+	
+	/*
+	cPage = 1   -> 0  , 10;
+	cPage = 2   -> 10 , 10;
+	cPage = 3   -> 20 , 10;
+	*/
+	int displayCount = 10;
+	int start = 0 + (cPage-1)*displayCount;
+	NoticeDao dao = NoticeDao.getInstance();
+	ArrayList<NoticeDto> list = 
+			dao.select(start, displayCount);
+	
+%>
   	<!-- breadcrumb start -->
   	<nav aria-label="breadcrumb">
 	  <ol class="breadcrumb">
@@ -28,18 +55,24 @@
 				    </tr>
 				  </thead>
 				  <tbody>
+				  <%
+				  	if(list.size() != 0){
+				  		for(NoticeDto dto : list){
+				  %>
 				    <tr>
-				      <th scope="row">1</th>
-				      <td>성영한</td>
-				      <td><a href="view.jsp">제목1제목1제목1제목1제목1제목1</a></td>
-				      <td>2021/06/10</td>
+				      <th scope="row"><%=dto.getNum() %></th>
+				      <td><%=dto.getWriter() %></td>
+				      <td><a href="view.jsp"><%=dto.getTitle() %></a></td>
+				      <td><%=dto.getRegdate() %></td>
 				    </tr>
-				    <tr>
-				      <th scope="row">2</th>
-				      <td>성영한1</td>
-				      <td><a href="view.jsp">제목2제목1제목1제목1제목1제목1</a></td>
-				      <td>2021/06/11</td>
+				  <%	
+				  		} 
+				  	}else{
+				  %> 
+				  	<tr>
+				      <td colspan='4'>데이터가 존재 하지 않습니다.</td>
 				    </tr>
+				  <%} %>
 				  </tbody>
 				</table>
 				<%--Pagination start --%>
