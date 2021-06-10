@@ -15,7 +15,29 @@
 		<!-- col start -->
 		<div class="row">
 			<div class="col-md-12">
-				
+				<h5>공지사항 보기</h5>
+				<%-- form start --%>
+				<form name="noticeForm" method="post" action="saveDb.jsp">
+				  <div class="form-group">
+				     작성자 : 성영한
+				  </div>
+				  <div class="form-group">
+				    제목 : 제목1
+				  </div>
+				  <div class="form-group">
+				  	내용 : 내용1내용1내용1내용1내용1내용1내용1내용1
+				  </div>
+				  
+				</form>
+				<div class="text-right">
+					<a class="btn btn-secondary" href="list.jsp" 
+					role="button">리스트</a>
+					<a class="btn btn-success" href="modify.jsp" 
+					role="button">수정</a>
+					<a class="btn btn-danger" id="deleteNotice"
+					role="button">삭제</a>
+				</div>
+				<%-- form end --%>
 			</div>
 		</div>
 		<!-- col end -->

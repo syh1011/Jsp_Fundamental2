@@ -16,6 +16,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<%-- table start --%>
+				<h5>공지사항 리스트</h5>
 				<div class="table-responsive">
 				<table class="table table-hover">
 				  <thead>
@@ -30,13 +31,13 @@
 				    <tr>
 				      <th scope="row">1</th>
 				      <td>성영한</td>
-				      <td>제목1제목1제목1제목1제목1제목1</td>
+				      <td><a href="view.jsp">제목1제목1제목1제목1제목1제목1</a></td>
 				      <td>2021/06/10</td>
 				    </tr>
 				    <tr>
 				      <th scope="row">2</th>
 				      <td>성영한1</td>
-				      <td>제목2제목1제목1제목1제목1제목1</td>
+				      <td><a href="view.jsp">제목2제목1제목1제목1제목1제목1</a></td>
 				      <td>2021/06/11</td>
 				    </tr>
 				  </tbody>

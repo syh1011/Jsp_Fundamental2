@@ -15,7 +15,33 @@
 		<!-- col start -->
 		<div class="row">
 			<div class="col-md-12">
-				
+				<h5>공지사항 글쓰기</h5>
+				<%-- form start --%>
+				<form name="noticeForm" method="post" action="saveDb.jsp">
+				  <div class="form-group">
+				    <label for="writer">작성자</label>
+				    <input type="text" class="form-control" 
+				    id="writer" name="writer" placeholder="작성자를 입력하세요">
+				  </div>
+				  <div class="form-group">
+				    <label for="title">제목</label>
+				    <input type="text" class="form-control" 
+				    id="title" name="title" placeholder="제목을 입력하세요">
+				  </div>
+				  <div class="form-group">
+				    <label for="content">내용</label>
+				    <textarea class="form-control" 
+				    id="content" name="content" rows="10"></textarea>
+				  </div>
+				  
+				</form>
+				<div class="text-right">
+					<a class="btn btn-secondary" href="list.jsp" 
+					role="button">리스트</a>
+					<a class="btn btn-success" id="saveNotice"
+					role="button">저장</a>
+				</div>
+				<%-- form end --%>
 			</div>
 		</div>
 		<!-- col end -->
