@@ -233,7 +233,46 @@ public class NoticeDao {
 
 		return resultCount;
 	}
-	
+	public NoticeDto select(int num) {
+		NoticeDto dto = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = ConnLocator.getConnect();
+
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT n_num, n_writer,n_title, n_content,  ");
+			sql.append("date_format(n_regdate,'%Y/%m/%d %h:%i') ");
+			sql.append("FROM notice ");
+			sql.append("WHERE n_num = ? ");
+
+			pstmt = con.prepareStatement(sql.toString());
+
+			int index = 1;
+			pstmt.setInt(index++, num);
+
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				index = 1;
+				num = rs.getInt(index++);
+				String writer = rs.getString(index++);
+				String title = rs.getString(index++);
+				String content = rs.getString(index++);
+				String regdate = rs.getString(index++);
+				dto = new NoticeDto(num,writer,title,
+						content,regdate);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(con, pstmt, rs);
+		}
+
+		return dto;
+	}
 	
 	
 	

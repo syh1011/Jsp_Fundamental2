@@ -79,7 +79,7 @@
 				    <tr>
 				      <th scope="row"><%=dto.getNum() %></th>
 				      <td><%=dto.getWriter() %></td>
-				      <td><a href="view.jsp"><%=dto.getTitle() %></a></td>
+				      <td><a href="view.jsp?num=<%=dto.getNum()%>&page=<%=cPage%>"><%=dto.getTitle() %></a></td>
 				      <td><%=dto.getRegdate() %></td>
 				    </tr>
 				  <%	
