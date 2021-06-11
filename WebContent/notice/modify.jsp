@@ -73,7 +73,8 @@
 				    <textarea class="form-control" 
 				    id="content" name="content" rows="10"><%=dto.getContent() %></textarea>
 				  </div>
-				  
+				  <input type="hidden" name="num" value="<%=num%>"/>
+				  <input type="hidden" name="page" value="<%=cPage%>"/>
 				</form>
 				<div class="text-right">
 					<a class="btn btn-secondary" href="view.jsp?num=<%=num%>&page=<%=cPage%>" 
@@ -87,6 +88,14 @@
 		<!-- col end -->
 	</div>
 	<!-- container end -->
+	
+	<script>
+	$(function(){
+		$('#modifyNotice').click(function(){
+			noticeForm.submit();
+		});
+	});
+	</script>
 <%@ include file="../inc/footer.jsp" %>
 	
 
