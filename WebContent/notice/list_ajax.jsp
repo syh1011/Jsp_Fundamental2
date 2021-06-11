@@ -3,7 +3,6 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="kr.or.kpc.dao.NoticeDao"%>
 <%@ page pageEncoding="utf-8" %>
-<%@ include file="../inc/header.jsp" %>
 <%
 	String tempPage = request.getParameter("page");
 	int cPage = 0;
@@ -20,39 +19,16 @@
 	cPage = 1   -> 0  , 10;
 	cPage = 2   -> 10 , 10;
 	cPage = 3   -> 20 , 10;
-	start = 0, 10 20   , displayCount : 10
-	An = a1 + (n-1)*d  
-		-> a1 : 0 , n->cPage , d : displayCount		
-	
 	*/
 	int displayCount = 4;
 	int pageDispalyCount = 3;
-	int totalRows = 0;//128
-	int currentBlock = 0;
-	int totalBlock = 0;
-	int totalPage = 0;
-	int startPage = 0;
-	int endPage = 0;
 	int start = 0 + (cPage-1)*displayCount;
 	NoticeDao dao = NoticeDao.getInstance();
 	ArrayList<NoticeDto> list = 
 			dao.select(start, displayCount);
 	
 %>
-  	<!-- breadcrumb start -->
-  	<nav aria-label="breadcrumb">
-	  <ol class="breadcrumb">
-	    <li class="breadcrumb-item"><a href="/index.jsp">홈</a></li>
-	    <li class="breadcrumb-item">공지사항</li>
-	 </ol>
-	</nav>
-	<!-- breadcrumb end -->
   	
-  	<!-- container start -->
-	<div class="container">
-		<!-- col start -->
-		<div class="row">
-			<div class="col-md-12">
 				<%-- table start --%>
 				<h5>공지사항 리스트</h5>
 				<div class="table-responsive">
@@ -99,7 +75,12 @@
 			Previous 1 2 3 4 5 6 7 8 9 10 Next => currentBlock : 1 block
 			Previous 11 12 13 Next			   => currentBlock : 2 block
 		*/
-		totalRows = dao.getRows();//128
+		int totalRows = dao.getRows();//128
+		int currentBlock = 0;
+		int totalBlock = 0;
+		int totalPage = 0;
+		int startPage = 0;
+		int endPage = 0;
 		
 		if(totalRows%displayCount==0){
 			totalPage = totalRows/displayCount;
@@ -156,33 +137,35 @@
 	%>
 				<nav aria-label="Page navigation example">
 				  <ul class="pagination justify-content-center">
-				    
-				    <li class="page-item <%if(currentBlock==1){%>disabled<%}%>">
-				      <a class="page-link" href="list.jsp?page=<%=startPage-1 %>" tabindex="-1" aria-disabled="true">Previous</a>
+				    <%if(currentBlock == 1){ %>
+				    <li class="page-item disabled">
+				      <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
 				    </li>
-				    
-				    <%for(int i=startPage;i<=endPage;i++){ %>
-				    <li class="page-item"><a class="page-link" href="list.jsp?page=<%=i%>"><%=i %></a></li>
+				    <%}else{ %>
+				    <li class="page-item">
+				      <a class="page-link" href="javascript:listAjax('<%=startPage-1 %>');" tabindex="-1" aria-disabled="true">Previous</a>
+				    </li>
 				    <%} %>
-				    
-				    <li class="page-item  <%if(totalBlock==currentBlock){ %>disabled<%}%>">
-				      <a class="page-link" href="list.jsp?page=<%=endPage+1%>">Next</a>
+				    <%for(int i=startPage;i<=endPage;i++){ %>
+				    <li class="page-item"><a class="page-link" href="javascript:listAjax('<%=i %>');"><%=i %></a></li>
+				    <%} %>
+				    <%if(totalBlock==currentBlock){ %>
+				    <li class="page-item  disabled">
+				      <a class="page-link" href="#">Next</a>
 				    </li>
-				    
+				    <%}else{ %>
+				    <li class="page-item">
+				      <a class="page-link" href="javascript:listAjax('<%=endPage+1 %>');">Next</a>
+				    </li>
+				    <%} %>
 				  </ul>
 				</nav>
 				<%--Pagination end --%>
 				<div class="text-right">
-					<a class="btn btn-success" href="write.jsp?page=<%=cPage %>" role="button">글쓰기</a>
+					<a class="btn btn-success" href="write.jsp" role="button">글쓰기</a>
 				</div>
 				</div>
-				<%-- table end--%>
-			</div>
-		</div>
-		<!-- col end -->
-	</div>
-	<!-- container end -->
-<%@ include file="../inc/footer.jsp" %>
+				
 	
 
 

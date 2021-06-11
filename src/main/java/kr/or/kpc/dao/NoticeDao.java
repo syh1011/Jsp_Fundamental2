@@ -202,5 +202,47 @@ public class NoticeDao {
 			e.printStackTrace();
 		}
 	}
+	public int getMaxNum() {
+		int resultCount = 0;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = ConnLocator.getConnect();
+
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT ifnull(MAX(n_num)+1,1) ");
+			sql.append("FROM notice ");
+
+			pstmt = con.prepareStatement(sql.toString());
+
+			int index = 1;
+
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				index = 1;
+				resultCount = rs.getInt(index++);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(con, pstmt, rs);
+		}
+
+		return resultCount;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
