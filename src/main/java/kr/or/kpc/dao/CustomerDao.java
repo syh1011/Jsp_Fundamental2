@@ -68,14 +68,19 @@ public class CustomerDao {
 			con = ConnLocator.getConnect();
 			StringBuilder sql = new StringBuilder();
 			sql.append("UPDATE customer ");
-			sql.append("SET c_pwd = PASSWORD(?), c_name =?, ");
+			sql.append("SET c_name =?,  ");
+			if(dto.getPwd() != null) {
+				sql.append("c_pwd = PASSWORD(?), ");
+			}
 			sql.append("c_status=? ");
 			sql.append("WHERE c_num = ? ");
 
 			pstmt = con.prepareStatement(sql.toString());
 			int index = 1;
-			pstmt.setString(index++, dto.getPwd());
 			pstmt.setString(index++, dto.getName());
+			if(dto.getPwd() != null) {
+				pstmt.setString(index++, dto.getPwd());
+			}
 			pstmt.setString(index++, dto.getStatus());
 			pstmt.setInt(index++, dto.getNum());
 

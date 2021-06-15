@@ -62,21 +62,12 @@
 		<div class="row">
 			<div class="col-md-12">
 				<h3>회원정보 보기</h3>
-	        	<form method="post" name="f" action="save.jsp">
+	        	<form method="post" name="f" action="update.jsp">
 				  <div class="form-group">
 	                <input type="text" class="form-control" id="email" 
-	                name="email" value="syh@hbilab.org"  readonly placeholder="Your Email *" value="<%=dto.getEmail() %>" />
+	                name="email"  readonly placeholder="Your Email *" value="<%=dto.getEmail() %>" />
 	              	<div class="invalid-feedback" id="errorEmail">
 				       이메일을 입력하세요.
-				    </div>
-				    <div class="valid-feedback">
-				        Looks good!
-				    </div>
-	              </div>
-	              <div class="form-group">
-	                <input type="password" class="form-control" id="pwd" name="pwd"  placeholder="Your Password *" value="" />
-	              	<div class="invalid-feedback" id="errorPwd">
-				    	비밀번호를 입력하세요.
 				    </div>
 				    <div class="valid-feedback">
 				        Looks good!
@@ -94,7 +85,7 @@
 	              </div>
 	              <div class="form-group">
 	                <input type="text" class="form-control" id="name" 
-	                name="name" value="성영한" placeholder="Your Name *" value="<%=dto.getName() %>" />
+	                name="name" placeholder="Your Name *" value="<%=dto.getName() %>" />
 	              	<div class="invalid-feedback" id="errorName">
 				       이름을 입력하세요.
 				    </div>
@@ -111,6 +102,8 @@
 				   <%if(dto.getStatus().equals("2")){ %>selected<%} %>>탈퇴</option>
 				    </select>
 	              </div>
+	              <input type="hidden" name="num" value="<%=dto.getNum()%>">
+	              <input type="hidden" name="page" value="<%=cPage%>">
 				</form>
 				<div class="text-right" style="margin-bottom : 20px;">
 					<a href="list.jsp" class="btn btn-outline-info">리스트</a>
@@ -124,12 +117,9 @@
 	<!-- container end -->
 	<script>
 	$(function(){
-		let email = $('#email').val();
-		let pwd = $('#pwd').val();
-		let repwd = $('#repwd').val();
-		let name = $('#name').val();
 		$('#updateCustomer').click(function(e){
 			e.preventDefault();
+			f.submit();
 		});
 	});	
 	</script>

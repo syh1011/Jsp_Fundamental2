@@ -1,0 +1,41 @@
+<div id="demo">sss</div>
+<script src="../js/jquery-3.6.0.js"></script>
+<script>
+	let latitude;
+	let longitude;
+	let status;
+	function geoFindMe() {
+	  status = document.querySelector('#demo');
+	  function success(position) {
+	    latitude  = position.coords.latitude;
+	    longitude = position.coords.longitude;
+		$.ajax({
+			type : 'get',
+			url : 'http://api.openweathermap.org/data/2.5/weather?lat='+latitude+'&lon='+longitude+'&appid=562bcac6b837eb21f900201907b027ab',
+			dataType : 'json',
+			error : function(){
+				alert('error');
+			},
+			success : function(json){
+				let region = json.name;
+				let main = json.weather[0].main
+				status.textContent = `Áö¿ª : ${region} , ³¯¾¾ : ${main}` ;
+			}
+		});
+	    status.textContent = `Latitude: ${latitude} , Longitude: ${longitude} `;
+	  }
+
+	  function error() {
+	    status.textContent = 'Unable to retrieve your location';
+	  }
+
+	  if(!navigator.geolocation) {
+	    status.textContent = 'Geolocation is not supported by your browser';
+	  } else {
+	    status.textContent = 'Locating¡¦';
+	    navigator.geolocation.getCurrentPosition(success, error);
+	  }
+
+	}
+	geoFindMe() ;
+</script>
