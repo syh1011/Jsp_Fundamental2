@@ -70,6 +70,7 @@
 	<!-- container end -->
 	<script>
 	$(function(){
+		let success = false;
 		$('#email').keyup(function(){
 			$('#email').removeClass('is-invalid');
 			if(validateEmail($('#email').val())){
@@ -85,9 +86,11 @@
 						if(json.result=="ok"){
 							$('#email').removeClass('is-invalid');
 							$('#email').add('is-valid');
+							success = true;
 						}else{
 							$('#errorEmail').text('이미 등록된 이메일 입니다.');
 							$('#email').addClass('is-invalid');
+							success = false;
 						}
 					}
 				});
@@ -96,7 +99,7 @@
 		
 		$('#saveCustomer').click(function(e){
 			e.preventDefault();
-			let success = false;
+			
 			let email = $('#email').val();
 			let pwd = $('#pwd').val();
 			let repwd = $('#repwd').val();
@@ -120,9 +123,11 @@
 								$('#email').removeClass('is-invalid');
 								$('#email').add('is-valid');
 								success = true;
+								
 							}else{
 								$('#errorEmail').text('이미 등록된 이메일 입니다.');
 								$('#email').addClass('is-invalid');
+								success = false;
 							}
 						}
 					});

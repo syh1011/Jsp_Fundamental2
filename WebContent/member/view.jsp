@@ -1,8 +1,50 @@
 <!-- template.html -->
+<%@page import="kr.or.kpc.dto.CustomerDto"%>
+<%@page import="kr.or.kpc.dao.CustomerDao"%>
 <%@page import="kr.or.kpc.dto.NoticeDto"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="kr.or.kpc.dao.NoticeDao"%>
 <%@ page pageEncoding="utf-8" %>
+
+
+<%
+	String tempPage = request.getParameter("page");
+	String tempNum = request.getParameter("num");
+	int cPage = 0;
+	int num = 0;
+	if(tempPage== null || tempPage.length()==0){
+		cPage = 1;
+	}
+	try{
+		cPage = Integer.parseInt(tempPage);
+	}catch(NumberFormatException e){
+		cPage = 1;
+	}
+	
+	if(tempNum == null || tempNum.length()==0){
+		num = -1;
+	}
+	
+	try{
+		num = Integer.parseInt(tempNum);
+	}catch(NumberFormatException e){
+		num = -1;
+	}
+	
+	CustomerDao dao = CustomerDao.getInstance();
+	CustomerDto dto = dao.select(num);//
+	
+	if(dto == null){
+		num = -1;
+	}
+	
+	if(num == -1){
+%>
+	<script>
+		alert('해당글이 존재 하지않습니다.');
+		location.href="list.jsp?page=<%=cPage%>";
+	</script>
+<%}else{%>
 <%@ include file="../inc/header.jsp" %>
 
   	<!-- breadcrumb start -->
@@ -23,7 +65,7 @@
 	        	<form method="post" name="f" action="save.jsp">
 				  <div class="form-group">
 	                <input type="text" class="form-control" id="email" 
-	                name="email" value="syh@hbilab.org"  readonly placeholder="Your Email *" value="" />
+	                name="email" value="syh@hbilab.org"  readonly placeholder="Your Email *" value="<%=dto.getEmail() %>" />
 	              	<div class="invalid-feedback" id="errorEmail">
 				       이메일을 입력하세요.
 				    </div>
@@ -52,7 +94,7 @@
 	              </div>
 	              <div class="form-group">
 	                <input type="text" class="form-control" id="name" 
-	                name="name" value="성영한" placeholder="Your Name *" value="" />
+	                name="name" value="성영한" placeholder="Your Name *" value="<%=dto.getName() %>" />
 	              	<div class="invalid-feedback" id="errorName">
 				       이름을 입력하세요.
 				    </div>
@@ -63,8 +105,10 @@
 	              <div class="form-group">
 	                <select class="form-control" 
 	                	id="status" name="status">
-				      <option value="1">가입</option>
-				      <option value="2">탈퇴</option>
+				      <option value="1" 
+				   <%if(dto.getStatus().equals("1")){ %>selected<%} %>>가입</option>
+				      <option value="2" 
+				   <%if(dto.getStatus().equals("2")){ %>selected<%} %>>탈퇴</option>
 				    </select>
 	              </div>
 				</form>
@@ -84,10 +128,13 @@
 		let pwd = $('#pwd').val();
 		let repwd = $('#repwd').val();
 		let name = $('#name').val();
+		$('#updateCustomer').click(function(e){
+			e.preventDefault();
+		});
 	});	
 	</script>
 <%@ include file="../inc/footer.jsp" %>
-	
+<%} %>	
 
 
 
