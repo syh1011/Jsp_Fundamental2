@@ -70,10 +70,37 @@
 	<!-- container end -->
 	<script>
 	$(function(){
-		let email = $('#email').val();
-		let pwd = $('#pwd').val();
-		let repwd = $('#repwd').val();
-		let name = $('#name').val();
+		
+		$('#saveCustomer').click(function(e){
+			e.preventDefault();
+			let email = $('#email').val();
+			let pwd = $('#pwd').val();
+			let repwd = $('#repwd').val();
+			let name = $('#name').val();
+			if(email==""){
+				$('#email').addClass('is-invalid');
+				
+			}else{
+				$('#email').removeClass('is-invalid');
+				
+				if(validateEmail(email)){
+					
+				}else{
+					$('#errorEmail').text('정상적인 이메일 주소가 아닙니다.');
+					$('#email').addClass('is-invalid');
+				}
+				
+			}
+			
+		});
+		
+		function validateEmail(email) {
+            var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+            return re.test(email);
+    	}
+		
+		
+		
 	});	
 	</script>
 <%@ include file="../inc/footer.jsp" %>
