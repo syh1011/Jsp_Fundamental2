@@ -219,6 +219,38 @@ public class CustomerDao {
 		return resultCount;
 	}
 	
+	public boolean isExisted(String email) {
+		boolean existed = false;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = ConnLocator.getConnect();
+
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT c_email ");
+			sql.append("FROM customer ");
+			sql.append("WHERE c_email = ?");
+
+			pstmt = con.prepareStatement(sql.toString());
+
+			int index = 1;
+			pstmt.setString(index++, email);
+
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				existed = true;
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(con, pstmt, rs);
+		}
+
+		return existed;
+	}
 	
 	
 	private void close(Connection con, 
