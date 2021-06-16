@@ -73,7 +73,7 @@ public class CustomerDao {
 				sql.append("c_pwd = PASSWORD(?), ");
 			}
 			sql.append("c_status=? ");
-			sql.append("WHERE c_num = ? ");
+			sql.append("WHERE c_num = ? ");//
 
 			pstmt = con.prepareStatement(sql.toString());
 			int index = 1;
@@ -288,6 +288,56 @@ public class CustomerDao {
 
 		return resultCount;
 	}
+	public CustomerDto getLogin(String email, String pwd) {
+		CustomerDto dto = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = ConnLocator.getConnect();
+
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT c_num, c_email, c_pwd, c_name, ");
+			sql.append("c_status, date_format(c_regdate,'%Y/%m/%d') ");
+			sql.append("FROM customer ");
+			sql.append("WHERE c_email = ? AND c_pwd = PASSWORD(?) ");
+
+			pstmt = con.prepareStatement(sql.toString());
+
+			int index = 1;
+			pstmt.setString(index++, email);
+			pstmt.setString(index++, pwd);
+
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				index = 1;
+				int num = rs.getInt(index++);
+				email = rs.getString(index++);
+				pwd = rs.getString(index++);
+				String name = rs.getString(index++);
+				String status = rs.getString(index++);
+				String regdate = rs.getString(index++);
+				dto = new CustomerDto(num, email, pwd,
+						name, status, regdate);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(con, pstmt, rs);
+		}
+
+		return dto;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	private void close(Connection con, 
 			PreparedStatement pstmt, 
