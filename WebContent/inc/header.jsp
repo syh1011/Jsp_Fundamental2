@@ -54,7 +54,7 @@
 	      <a href="/member/join.jsp">회원가입</a>
 	      <%}else{ %>
 	      
-	      <%=customerDto.getName() %>님 안녕하세요..
+	      <%=customerDto.getName() %>님 안녕하세요..[<span id="sessionTime"></span>]
 	      <a href="/member/logtout.jsp">로그아웃</a> | 
 	      <a href="/member/mypage.jsp">마이페이지</a>
 	      <%} %>
@@ -62,4 +62,25 @@
 	    </span>
 	  </div>
 	</nav>
-  	<!-- navbar end -->
+	<!-- navbar end -->
+	<script>
+		let time = <%=session.getMaxInactiveInterval()%>;
+		let min = "";
+		let sec = "";
+		const x = setInterval(function(){
+			min = parseInt(time/60);
+			sec = time%60;
+			$("#sessionTime").html(min+"분 "+sec+"초");
+			time--;
+			if(time <0){
+				clearInterval(x);//실행끝
+				location.href="/member/login.jsp";
+			}
+		},1000);
+	</script>
+	
+	
+	
+	
+	
+	
