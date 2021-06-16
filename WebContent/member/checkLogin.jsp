@@ -16,7 +16,7 @@
 		}else{
 			%>
 			<script>
-				alert('로그인 정보가 잘못되었습니다.');
+				alert('탈퇴회원 입니다.\n관리자에게 문의하세요');
 				history.back(-1);
 			</script>
 	<%
