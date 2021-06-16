@@ -69,7 +69,7 @@ public class CustomerDao {
 			StringBuilder sql = new StringBuilder();
 			sql.append("UPDATE customer ");
 			sql.append("SET c_name =?,  ");
-			if(dto.getPwd() != null) {
+			if(dto.getPwd() != null && dto.getPwd().length() >0) {
 				sql.append("c_pwd = PASSWORD(?), ");
 			}
 			sql.append("c_status=? ");
@@ -78,7 +78,7 @@ public class CustomerDao {
 			pstmt = con.prepareStatement(sql.toString());
 			int index = 1;
 			pstmt.setString(index++, dto.getName());
-			if(dto.getPwd() != null) {
+			if(dto.getPwd() != null && dto.getPwd().length() >0) {
 				pstmt.setString(index++, dto.getPwd());
 			}
 			pstmt.setString(index++, dto.getStatus());

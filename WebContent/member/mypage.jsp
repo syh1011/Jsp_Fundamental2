@@ -30,7 +30,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<h3>마이페이지</h3>
-	        	<form method="post" name="f" action="update.jsp">
+	        	<form method="post" name="f" action="updateMypage.jsp">
 				  <div class="form-group">
 	                <input type="text" class="form-control" id="email" 
 	                name="email"  readonly placeholder="Your Email *" value="<%=dto.getEmail() %>" />
